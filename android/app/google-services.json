@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "411371651328",
+    "project_id": "payzero-project",
+    "storage_bucket": "payzero-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411371651328:android:c6ea96dcab42dd756433e5",
+        "android_client_info": {
+          "package_name": "app.payzero.payzero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411371651328-jburftcj69a0v73fo4iqhghk0k1a5lg8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.payzero.payzero",
+            "certificate_hash": "b393c9369f657b6bba8cd20e3dee8058fb722012"
+          }
+        },
+        {
+          "client_id": "411371651328-16s5jaoa51r0u4468qf2ssrbkbsmtbpq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArKzBMnv3fbGMXQjLU7-hCaX9YnIIzYAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411371651328-16s5jaoa51r0u4468qf2ssrbkbsmtbpq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
