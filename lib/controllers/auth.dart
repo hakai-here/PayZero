@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:payzero/controllers/database.dart';
 
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -22,7 +23,9 @@ class Auth {
             idToken: googleSignInAuthentication.idToken);
 
         try {
-          await _firebaseAuth.signInWithCredential(credential);
+          UserCredential userCredential =
+              await _firebaseAuth.signInWithCredential(credential);
+          await Datamethod().initilizeuserData(userCredential.user!.uid);
         } catch (e) {
           return e
               .toString()
@@ -59,6 +62,7 @@ class Auth {
       await user.user?.sendEmailVerification();
       await user.user?.updatePhotoURL(
           "https://firebasestorage.googleapis.com/v0/b/commutee-flutter-c2.appspot.com/o/woman-with-balloon-image-torn-paper-style_53876-128762.webp?alt=media&token=84acb782-6e9a-48cb-9964-839fde6fe8ef");
+      await Datamethod().initilizeuserData(user.user!.uid);
     } catch (e) {
       return e.toString().replaceAll(RegExp(r"\[(.*?)\] ", unicode: true), "");
     }

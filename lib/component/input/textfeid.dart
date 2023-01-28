@@ -6,6 +6,7 @@ class TextInput extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool password;
   final bool autoFocus;
+
   const TextInput(
       {super.key,
       this.autoFocus = false,

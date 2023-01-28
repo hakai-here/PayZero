@@ -22,13 +22,35 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder(
           stream: Auth().authStateChange,
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.active) {
-              if (snapshot.hasData) {
-                return const Mainpage();
-              }
-            }
-            return const Login();
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              reverseDuration: const Duration(milliseconds: 300),
+              transitionBuilder: (child, animation) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.easeInOut;
+
+                var tween = Tween(begin: begin, end: end)
+                    .chain(CurveTween(curve: curve));
+
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+              child: snapshot.hasData ? const Mainpage() : const Login(),
+            );
           },
         ));
   }
 }
+
+
+/*
+ // if (snapshot.connectionState == ConnectionState.active) {
+            //   if (snapshot.hasData) {
+            //     return const Mainpage();
+            //   }
+            // }
+            // return const Login();
+ */

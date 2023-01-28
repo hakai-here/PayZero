@@ -17,6 +17,7 @@ class _RegisterState extends State<Register> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _username = TextEditingController();
+  bool ispassword = true;
   @override
   void initState() {
     super.initState();
@@ -103,7 +104,7 @@ class _RegisterState extends State<Register> {
                 ),
                 const SizedBox(height: 20),
                 TextInput(
-                  password: true,
+                  password: ispassword,
                   placeholder: "Password",
                   textEditingController: _password,
                 ),
