@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payzero/component/color.dart';
+import 'package:payzero/screens/main/groups/group_page.dart';
 import 'package:payzero/screens/main/home/home.dart';
 import 'package:payzero/screens/main/management/transation.dart';
 import 'package:payzero/screens/main/profile/Profile.dart';
@@ -14,7 +15,12 @@ class Mainpage extends StatefulWidget {
 class _MainpageState extends State<Mainpage> {
   int currentIndex = 0;
 
-  final screen = const [Home(), Transation(), Profile()];
+  final screen = const [
+    Home(),
+    Transation(),
+    Groups(),
+    Profile(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +32,12 @@ class _MainpageState extends State<Mainpage> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           elevation: 0,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.money), label: 'Expense'),
+            BottomNavigationBarItem(icon: Icon(Icons.group), label: "Groups"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
           ],
           currentIndex: currentIndex,

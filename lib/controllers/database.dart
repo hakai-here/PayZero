@@ -23,4 +23,8 @@ class Datamethod {
     }
     return true;
   }
+
+  Future getUsergroups(String uid) async {
+    return _firestore.collection('users').doc(uid).snapshots();
+  }
 }

@@ -5,29 +5,15 @@ void basicAlert(BuildContext context, String content) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(Icons.close),
-                  splashRadius: 19,
-                )
-              ],
-            ),
-            const Text(
-              "Ooops, looks like there is some error ",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  height: 1.5,
-                  color: Color(0xff181b19)),
-            ),
-          ],
+      title: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 8),
+        child: Text(
+          "Ooops, looks like there is some error ",
+          style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              height: 1.5,
+              color: Color(0xff181b19)),
         ),
       ),
       content: Text(
