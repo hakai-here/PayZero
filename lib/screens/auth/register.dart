@@ -3,7 +3,6 @@ import 'package:payzero/component/alert/basic_alert.dart';
 import 'package:payzero/component/color.dart';
 import 'package:payzero/component/input/textfeid.dart';
 import 'package:payzero/controllers/auth.dart';
-import 'package:payzero/screens/auth/signin.dart';
 import 'package:payzero/screens/main/main_app.dart';
 
 class Register extends StatefulWidget {

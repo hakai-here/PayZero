@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:payzero/component/alert/basic_alert.dart';
 import 'package:payzero/controllers/auth.dart';
 import 'package:payzero/screens/auth/register.dart';
-import 'package:payzero/screens/main/main_app.dart';
 
 import '../../component/color.dart';
 import '../../component/input/textfeid.dart';
