@@ -10,8 +10,6 @@ class Transation extends StatefulWidget {
 class _TransationState extends State<Transation> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("transation"),
-    );
+    return const Text("transation");
   }
 }

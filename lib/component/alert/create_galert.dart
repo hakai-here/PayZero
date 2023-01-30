@@ -4,7 +4,6 @@ import 'package:payzero/component/input/textfeid.dart';
 
 void popUpAlert(BuildContext context, String titlepage, String placeholder,
     String button, TextEditingController editingController, Function ontap) {
-  bool isloading = false;
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -18,16 +17,10 @@ void popUpAlert(BuildContext context, String titlepage, String placeholder,
                 color: Color(0xff181b19)),
           ),
         ),
-        content: isloading
-            ? Center(
-                child: CircularProgressIndicator(
-                  color: primaryColor,
-                ),
-              )
-            : TextInput(
-                placeholder: placeholder,
-                autoFocus: true,
-                textEditingController: editingController),
+        content: TextInput(
+            placeholder: placeholder,
+            autoFocus: true,
+            textEditingController: editingController),
         actions: [
           Container(
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
@@ -35,15 +28,13 @@ void popUpAlert(BuildContext context, String titlepage, String placeholder,
             height: 50,
             child: TextButton(
               style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
-              onPressed: isloading
-                  ? null
-                  : () async {
-                      isloading = true;
-                      await ontap();
-                      isloading = false;
-                      // ignore: use_build_context_synchronously
-                      Navigator.of(context).pop();
-                    },
+              onPressed: () {
+                () async {
+                  await ontap();
+                }();
+
+                Navigator.of(context).pop();
+              },
               child: Text(
                 button,
                 style: const TextStyle(
