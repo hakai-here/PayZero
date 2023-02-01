@@ -3,7 +3,7 @@ import 'package:payzero/component/color.dart';
 import 'package:payzero/screens/main/groups/group_list.dart';
 import 'package:payzero/screens/main/home/home.dart';
 import 'package:payzero/screens/main/management/transation.dart';
-import 'package:payzero/screens/main/profile/Profile.dart';
+import 'package:payzero/screens/main/profile/profile.dart';
 
 class Mainpage extends StatefulWidget {
   const Mainpage({super.key});
