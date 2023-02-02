@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:payzero/component/color.dart';
 
+// ignore: must_be_immutable
 class TextInput extends StatelessWidget {
   final String placeholder;
   final TextEditingController textEditingController;
   final bool password;
   final bool autoFocus;
+  Function? onsubmit;
 
-  const TextInput(
+  TextInput(
       {super.key,
+      this.onsubmit,
       this.autoFocus = false,
       required this.placeholder,
       required this.textEditingController,
@@ -17,6 +20,9 @@ class TextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: (value) {
+        onsubmit!();
+      },
       autofocus: autoFocus,
       obscureText: password,
       controller: textEditingController,

@@ -50,12 +50,66 @@ class Datamethod {
     });
   }
 
-  Future<bool> deleteGroup(String uid, String group) async {
+  Future<bool> deleteGroup(
+      String uid, String username, String groupId, String groupName) async {
     DocumentReference userDocument = userCollection.doc(uid);
+    DocumentReference groupDocument = groupCollection.doc(groupId);
     try {
       await userDocument.update({
-        'group': FieldValue.arrayRemove([group])
+        'group': FieldValue.arrayRemove(["${groupId}_$groupName"])
       });
+      await groupDocument.update({
+        "members": FieldValue.arrayRemove(["${uid}_$username"])
+      });
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  Future getTrans(String groupId) async {
+    return groupCollection
+        .doc(groupId)
+        .collection("transations")
+        .orderBy("time")
+        .snapshots();
+  }
+
+  Future getMembers(String groupId) async {
+    return groupCollection.doc(groupId).snapshots();
+  }
+
+  Future searchGroupByName(String groupName) {
+    return groupCollection.where('groupName', isEqualTo: groupName).get();
+  }
+
+  Future<bool> isUserJoined(
+      String uid, String groupId, String groupName) async {
+    DocumentReference userReference = userCollection.doc(uid);
+    DocumentSnapshot documentSnapshot = await userReference.get();
+    List<dynamic> group = await documentSnapshot['group'];
+    if (group.contains("${groupId}_$groupName")) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> groupJoin(
+      String groupId, String groupName, String userID, String userName) async {
+    try {
+      DocumentReference userDoc = userCollection.doc(userID);
+      DocumentReference groupDoc = groupCollection.doc(groupId);
+
+      DocumentSnapshot userDocSnapshot = await userDoc.get();
+      List<dynamic> group = await userDocSnapshot['group'];
+      if (!group.contains("${groupId}_$groupName")) {
+        await userDoc.update({
+          'group': FieldValue.arrayUnion(["${groupId}_$groupName"])
+        });
+        await groupDoc.update({
+          "members": FieldValue.arrayUnion(["${userID}_$userName"])
+        });
+      }
     } catch (e) {
       return false;
     }

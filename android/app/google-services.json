@@ -22,7 +22,15 @@
           }
         },
         {
-          "client_id": "411371651328-16s5jaoa51r0u4468qf2ssrbkbsmtbpq.apps.googleusercontent.com",
+          "client_id": "411371651328-oop91deeaff43jlrrqa1kumkj40rmn8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.payzero.payzero",
+            "certificate_hash": "cf1625febf138e543831ca9e3ce729428d2171de"
+          }
+        },
+        {
+          "client_id": "411371651328-t6r5kosjan5cqk0c2j74upar1g44itaj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

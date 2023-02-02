@@ -4,7 +4,9 @@ import 'package:payzero/component/alert/create_galert.dart';
 import 'package:payzero/component/color.dart';
 import 'package:payzero/controllers/auth.dart';
 import 'package:payzero/controllers/database.dart';
-import 'package:payzero/screens/main/groups/group_page.dart';
+import 'package:payzero/screens/main/groups/members.dart';
+import 'package:payzero/screens/main/groups/search.dart';
+import 'package:payzero/screens/main/management/transation.dart';
 
 class Groups extends StatefulWidget {
   const Groups({super.key});
@@ -18,7 +20,9 @@ class _GroupsState extends State<Groups> {
   final TextEditingController _editingController = TextEditingController();
   bool displaygroup = false;
   int indexn = 0;
+  int indexin = 0;
   String gname = "";
+  String gid = "";
   @override
   void initState() {
     super.initState();
@@ -53,7 +57,8 @@ class _GroupsState extends State<Groups> {
   }
 
   void deleteGroup(String groupid) async {
-    bool k = await Datamethod().deleteGroup(Auth().currerntuser!.uid, groupid);
+    bool k = await Datamethod().deleteGroup(Auth().currerntuser!.uid,
+        Auth().currerntuser!.displayName!, getId(groupid), getName(groupid));
     if (k) {
       // ignore: use_build_context_synchronously
       showSnackbar(const Color.fromARGB(255, 244, 120, 54),
@@ -109,9 +114,30 @@ class _GroupsState extends State<Groups> {
                   Text(
                     gname,
                     style: TextStyle(color: textColor),
+                    overflow: TextOverflow.ellipsis,
                   )
                 ],
               ),
+              actions: <Widget>[
+                IconButton(
+                  onPressed: () => setState(() {
+                    indexin = 0;
+                  }),
+                  splashRadius: 19,
+                  icon: const Icon(Icons.attach_money_outlined),
+                  iconSize: 24,
+                  color: textColor,
+                ),
+                IconButton(
+                  onPressed: () => setState(() {
+                    indexin = 1;
+                  }),
+                  splashRadius: 19,
+                  icon: const Icon(Icons.groups),
+                  iconSize: 24,
+                  color: textColor,
+                )
+              ],
             )
           : AppBar(
               title: Row(children: [
@@ -127,6 +153,16 @@ class _GroupsState extends State<Groups> {
                   style: TextStyle(color: textColor),
                 )
               ]),
+              actions: <Widget>[
+                IconButton(
+                    onPressed: () =>
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const Search(),
+                        )),
+                    splashRadius: 19,
+                    color: textColor,
+                    icon: const Icon(Icons.search))
+              ],
               backgroundColor: Colors.white,
               elevation: 0,
             ),
@@ -166,6 +202,7 @@ class _GroupsState extends State<Groups> {
                       return InkWell(
                         onTap: () {
                           setState(() {
+                            gid = getId(snapshot.data['group'][index]);
                             gname = getName(snapshot.data['group'][index]);
                             displaygroup = true;
                           });
@@ -203,9 +240,9 @@ class _GroupsState extends State<Groups> {
                                     splashRadius: 19,
                                     onPressed: () => deleteGroup(
                                         snapshot.data['group'][index]),
-                                    icon: const Icon(
+                                    icon: Icon(
                                       Icons.exit_to_app,
-                                      color: Colors.redAccent,
+                                      color: textColor,
                                     ))
                               ],
                             ),
@@ -255,6 +292,19 @@ class _GroupsState extends State<Groups> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget grouPage() {
+    List<Widget> screen = <Widget>[
+      const Transation(),
+      Members(
+        groupId: gid,
+        groupname: gname,
+      ),
+    ];
+    return Scaffold(
+      body: screen.elementAt(indexin),
     );
   }
 }
