@@ -6,7 +6,7 @@ import 'package:payzero/controllers/auth.dart';
 import 'package:payzero/controllers/database.dart';
 import 'package:payzero/screens/main/groups/members.dart';
 import 'package:payzero/screens/main/groups/search.dart';
-import 'package:payzero/screens/main/management/transation.dart';
+import 'package:payzero/screens/main/groups/transations.dart';
 
 class Groups extends StatefulWidget {
   const Groups({super.key});
@@ -297,7 +297,7 @@ class _GroupsState extends State<Groups> {
 
   Widget grouPage() {
     List<Widget> screen = <Widget>[
-      const Transation(),
+      Transations(),
       Members(
         groupId: gid,
         groupname: gname,
