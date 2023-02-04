@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:payzero/component/color.dart';
+import 'package:payzero/component/input/textfeid.dart';
+import 'package:payzero/controllers/database.dart';
 
 class Transations extends StatefulWidget {
-  const Transations({super.key});
+  final String groupId;
+  const Transations({super.key, required this.groupId});
 
   @override
   State<Transations> createState() => _TransationsState();
@@ -12,6 +15,30 @@ class _TransationsState extends State<Transations> {
   double totalB = 0;
   double sendB = 0;
   double reciveB = 0;
+  final TextEditingController amnt = TextEditingController();
+  final TextEditingController desc = TextEditingController();
+
+  var textEditingControllers = <TextEditingController>[];
+  var textFields = <TextField>[];
+  Stream? stream;
+  @override
+  void initState() {
+    getMembers();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    amnt.dispose();
+    desc.dispose();
+  }
+
+  getMembers() async {
+    await Datamethod().getMembers(widget.groupId).then((value) {
+      stream = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +66,9 @@ class _TransationsState extends State<Transations> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         elevation: 0,
-        onPressed: () => showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          builder: (context) => bottomSheet(),
-        ),
+        onPressed: () {
+          moneyPopup();
+        },
         child: const Icon(
           Icons.add,
           size: 30,
@@ -52,12 +77,7 @@ class _TransationsState extends State<Transations> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            container
-          ],
+          children: [container],
         ),
       ),
     );
@@ -81,15 +101,67 @@ class _TransationsState extends State<Transations> {
     );
   }
 
-  Widget bottomSheet() {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: const [
-        SizedBox(
-          height: 30,
+  void moneyPopup() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          "Enter the amount",
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
-        Text("HHH")
-      ],
+        content: Column(mainAxisSize: MainAxisSize.min, children: [
+          TextInput(
+            placeholder: "Amount",
+            prefix: const Text("₹ "),
+            autoFocus: true,
+            textEditingController: amnt,
+            textInputType: TextInputType.number,
+            onsubmit: () {},
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextInput(
+            placeholder: "Description",
+            textEditingController: desc,
+            onsubmit: () {},
+          )
+        ]),
+        actions: [
+          SizedBox(
+            height: 50,
+            width: MediaQuery.of(context).size.width,
+            child: TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                listUsers();
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+              child: const Text(
+                "Next",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+          )
+        ],
+      ),
     );
+  }
+
+  void listUsers() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text("Split users"),
+              content: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [],
+                ),
+              ),
+            ));
   }
 }

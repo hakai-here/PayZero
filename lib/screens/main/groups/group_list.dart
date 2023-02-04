@@ -297,7 +297,9 @@ class _GroupsState extends State<Groups> {
 
   Widget grouPage() {
     List<Widget> screen = <Widget>[
-      Transations(),
+      Transations(
+        groupId: gid,
+      ),
       Members(
         groupId: gid,
         groupname: gname,

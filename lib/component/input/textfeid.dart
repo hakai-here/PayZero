@@ -7,6 +7,8 @@ class TextInput extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool password;
   final bool autoFocus;
+  final TextInputType textInputType;
+  Widget? prefix;
   Function? onsubmit;
 
   TextInput(
@@ -15,7 +17,9 @@ class TextInput extends StatelessWidget {
       this.autoFocus = false,
       required this.placeholder,
       required this.textEditingController,
-      this.password = false});
+      this.textInputType = TextInputType.name,
+      this.password = false,
+      this.prefix});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +27,12 @@ class TextInput extends StatelessWidget {
       onChanged: (value) {
         onsubmit!();
       },
+      keyboardType: textInputType,
       autofocus: autoFocus,
       obscureText: password,
       controller: textEditingController,
       decoration: InputDecoration(
+          prefix: prefix,
           hintText: placeholder,
           label: Text(placeholder),
           labelStyle: TextStyle(color: textColor),
